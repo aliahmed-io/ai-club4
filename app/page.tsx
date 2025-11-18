@@ -315,7 +315,7 @@ export default function Home() {
             )}
           </div>
 
-          {/* Overview card (like slide) */}
+          {/* Overview + ready-to-copy */}
           <div className="relative flex flex-col gap-4 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 p-6 shadow-xl ring-1 ring-slate-800">
             <div className="absolute -left-8 top-10 h-20 w-20 rounded-[2rem] bg-violet-500/30 blur-2xl" />
             <div className="absolute bottom-0 right-0 h-24 w-24 rounded-[3rem] bg-violet-300/25 blur-3xl" />
@@ -325,7 +325,7 @@ export default function Home() {
               <span>Overview</span>
             </div>
 
-            <div className="relative z-10 flex flex-col gap-3">
+            <div className="relative z-10 flex flex-col gap-4">
               <div className="flex items-end justify-between gap-3">
                 <div>
                   <p className="text-xs font-semibold text-violet-200">
@@ -372,105 +372,103 @@ export default function Home() {
                       </span>
                       <span className="text-[10px] text-slate-500 capitalize">
                         {c.level}
-            </div>
-          </div>
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-          <div className="mt-2 flex items-center justify-center text-[9px] text-slate-400">
-            <span>Slide-inspired layout · AI prompt lab</span>
+              {/* Ready-to-copy improved prompt */}
+              <div className="mt-4 rounded-3xl bg-slate-900/80 p-6 shadow-xl ring-1 ring-slate-800">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <h2 className="text-sm font-semibold text-violet-100">
+                      Ready-to-copy prompt
+                    </h2>
+                    <p className="text-xs text-slate-400">
+                      Use this upgraded version as input for any other AI model
+                      or tool.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleCopyImproved}
+                    disabled={!analysis || !analysis.improvedPrompt?.trim()}
+                    className="inline-flex items-center gap-2 rounded-full bg-slate-800 px-4 py-1.5 text-xs font-medium text-slate-100 shadow-sm transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-800/40"
+                  >
+                    {copied ? "Copied" : "Copy prompt"}
+                  </button>
+                </div>
+
+                <div className="mt-3 rounded-2xl bg-slate-950/80 p-4 text-xs text-slate-100 ring-1 ring-slate-800">
+                  {!analysis || !analysis.improvedPrompt?.trim() ? (
+                    <p className="text-slate-400">
+                      Run an analysis first to generate an improved,
+                      export-ready prompt.
+                    </p>
+                  ) : (
+                    <pre className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed">
+                      {analysis.improvedPrompt}
+                    </pre>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-    <div className="relative z-10 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-      <span className="h-px flex-1 bg-slate-700" />
-      <span>Overview</span>
-    </div>
-
-    <div className="relative z-10 flex flex-col gap-3">
-      <div className="flex items-end justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold text-violet-200">
-            Overall score
-          </p>
-          <p className="text-3xl font-bold text-white">
-            {overallScore}/100
-          </p>
-          <p className="text-xs text-slate-400">{overallLabel}</p>
-        </div>
-        <div className="flex flex-col items-end gap-1 text-[11px] text-slate-300">
-          <span className="font-semibold">Analysis status</span>
-          <span className="rounded-full bg-slate-900 px-2 py-0.5 text-[10px] text-slate-200">
-            {analysis ? "Last run from Gemini" : "Waiting for first analysis"}
-          </span>
-        </div>
-      </div>
-
-      <div className="mt-1 grid gap-2 text-[11px] text-slate-300">
-        {criteriaScores.map((c) => (
-          <div
-            key={c.id}
-            className="flex items-center justify-between rounded-2xl bg-slate-900/80 px-3 py-2 ring-1 ring-slate-800"
-          >
-            <div className="flex flex-col">
-              <span className="text-xs font-semibold text-violet-100">
-                {c.label}
-              </span>
-              <span className="text-[11px] text-slate-400">
-                {c.feedback}
-              </span>
-            </div>
-            <div className="flex flex-col items-end text-right">
-              <span
-                className={`text-xs font-semibold ${
-                  c.level === "strong"
-                    ? "text-emerald-300"
-                    : c.level === "ok"
-                      ? "text-amber-300"
-                      : "text-rose-300"
-                }`}
-              >
-                {c.score}/100
-              </span>
-              <span className="text-[10px] text-slate-500 capitalize">
-                {c.level}
-              </span>
+        {/* Suggestions / tips section */}
+        <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
+          <div className="rounded-3xl bg-slate-900/80 p-6 shadow-xl ring-1 ring-slate-800">
+            <h2 className="text-sm font-semibold text-violet-100">
+              Targeted suggestions
+            </h2>
+            <p className="mt-1 text-xs text-slate-400">
+              Generated from your prompt-engineering checklist.
+            </p>
+            <div className="mt-4 space-y-2 text-sm text-slate-200">
+              {!analysis ? (
+                <p className="text-xs text-slate-300">
+                  Run an analysis to see AI-generated, targeted suggestions for
+                  how to upgrade your prompt.
+                </p>
+              ) : analysis.suggestions.length === 0 ? (
+                <p className="text-xs text-emerald-300">
+                  Gemini didn&apos;t find any major issues. Try changing your goal
+                  or context to explore different variants.
+                </p>
+              ) : (
+                analysis.suggestions.map((s, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-2 rounded-2xl bg-slate-950/80 px-3 py-2"
+                  >
+                    <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-400" />
+                    <p className="text-xs text-slate-200">{s}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
-        ))}
 
-        {/* Ready-to-copy improved prompt */}
-        <div className="mt-4 rounded-3xl bg-slate-900/80 p-6 shadow-xl ring-1 ring-slate-800">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <h2 className="text-sm font-semibold text-violet-100">
-                Ready-to-copy prompt
-              </h2>
-              <p className="text-xs text-slate-400">
-                Use this upgraded version as input for any other AI model or
-                tool.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={handleCopyImproved}
-              disabled={!analysis || !analysis.improvedPrompt?.trim()}
-              className="inline-flex items-center gap-2 rounded-full bg-slate-800 px-4 py-1.5 text-xs font-medium text-slate-100 shadow-sm transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-800/40"
-            >
-              {copied ? "Copied" : "Copy prompt"}
-            </button>
-          </div>
-
-          <div className="mt-3 rounded-2xl bg-slate-950/80 p-4 text-xs text-slate-100 ring-1 ring-slate-800">
-            {!analysis || !analysis.improvedPrompt?.trim() ? (
-              <p className="text-slate-400">
-                Run an analysis first to generate an improved, export-ready
-                prompt.
-              </p>
-            ) : (
-              <pre className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed">
-                {analysis.improvedPrompt}
-              </pre>
-            )}
+          <div className="rounded-3xl bg-gradient-to-br from-violet-500/15 via-slate-900 to-slate-950 p-6 shadow-xl ring-1 ring-violet-700/40">
+            <h2 className="text-sm font-semibold text-violet-50">
+              Tips for better prompts
+            </h2>
+            <p className="mt-1 text-xs text-violet-100/90">
+              Use this as a mini slide: refine, re-run, and compare versions.
+            </p>
+            <ul className="mt-3 space-y-2 text-xs text-violet-50/95">
+              {tips.map((tip) => (
+                <li
+                  key={tip}
+                  className="flex gap-2 rounded-2xl bg-slate-950/70 px-3 py-2"
+                >
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-300" />
+                  <span>{tip}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
