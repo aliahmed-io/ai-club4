@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 type CriterionId = "context" | "goal" | "format" | "constraints" | "examples";
 
@@ -154,41 +155,41 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50">
+    <main className="min-h-screen bg-[#f7f4ff] text-slate-900">
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col gap-10 px-4 py-10 md:px-8">
         {/* Hero section */}
         <div className="grid items-center gap-10 md:grid-cols-[1.1fr,0.9fr]">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-500 via-violet-600 to-violet-800 p-8 shadow-2xl">
-            <div className="mb-6 flex items-center justify-between text-xs uppercase tracking-[0.2em] text-violet-100/80">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1">
+          <div className="relative overflow-hidden rounded-3xl bg-white/95 p-8 shadow-xl ring-1 ring-violet-100">
+            <div className="mb-6 flex items-center justify-between text-xs uppercase tracking-[0.2em] text-violet-400">
+              <span className="inline-flex items-center gap-2 rounded-full bg-violet-50 px-4 py-1 text-violet-700">
                 <span className="h-2 w-2 rounded-full bg-emerald-300" />
                 Live prompt analyzer
               </span>
               <span>Prompt Engineering 101</span>
             </div>
-            <h1 className="text-3xl font-semibold leading-tight md:text-4xl lg:text-5xl">
+            <h1 className="text-3xl font-semibold leading-tight text-violet-700 md:text-4xl lg:text-5xl">
               Design prompts
               <br />
               like a <span className="font-extrabold">pro</span>.
             </h1>
-            <p className="mt-4 max-w-md text-sm text-violet-100/90 md:text-base">
+            <p className="mt-4 max-w-md text-sm text-slate-600 md:text-base">
               Paste any prompt and let Gemini grade it based on context, goal,
               format, constraints, and examples. Get an improved version with
               one click.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-4 text-xs md:text-sm">
               <div className="flex -space-x-2 overflow-hidden">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/25 text-[10px] font-semibold text-violet-900">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-violet-100 text-[10px] font-semibold text-violet-800">
                   PE
                 </span>
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-[10px] font-semibold text-violet-50">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-violet-50 text-[10px] font-semibold text-violet-600">
                   AI
                 </span>
               </div>
-              <div className="h-6 w-px bg-white/30" />
+              <div className="h-6 w-px bg-violet-200" />
               <div className="flex flex-col">
-                <span className="font-medium">Based on your checklist</span>
-                <span className="text-[11px] text-violet-100/80">
+                <span className="font-medium text-slate-700">Based on your checklist</span>
+                <span className="text-[11px] text-violet-500">
                   Context · Goal · Format · Constraints · Examples
                 </span>
               </div>
@@ -198,16 +199,16 @@ export default function Home() {
           {/* Phone-style visualization */}
           <div className="flex flex-col items-center gap-4">
             <div className="relative flex items-center justify-center">
-              <div className="absolute -left-10 -z-10 h-40 w-40 rounded-full bg-violet-500/30 blur-3xl" />
-              <div className="absolute -right-10 -z-10 h-32 w-32 rounded-full bg-violet-300/20 blur-3xl" />
+              <div className="absolute -left-10 -z-10 h-40 w-40 rounded-full bg-violet-200/50 blur-3xl" />
+              <div className="absolute -right-10 -z-10 h-32 w-32 rounded-full bg-violet-100/60 blur-3xl" />
 
-              <div className="relative flex h-80 w-40 items-center justify-center rounded-[2.5rem] border border-slate-800 bg-slate-900/90 shadow-[0_24px_80px_rgba(15,23,42,0.9)]">
-                <div className="absolute top-3 h-1 w-16 rounded-full bg-slate-700" />
+              <div className="relative flex h-80 w-40 items-center justify-center rounded-[2.5rem] border border-violet-200 bg-white shadow-[0_18px_60px_rgba(148,163,184,0.55)]">
+                <div className="absolute top-3 h-1 w-16 rounded-full bg-slate-200" />
                 <div className="absolute left-1 top-16 h-10 w-1 rounded-full bg-slate-700" />
                 <div className="absolute right-1 top-24 h-10 w-1 rounded-full bg-slate-700" />
 
-                <div className="mx-4 flex h-[85%] w-[82%] flex-col rounded-3xl bg-gradient-to-br from-violet-500/15 via-slate-900 to-slate-950 p-4">
-                  <div className="flex items-center justify-between text-[10px] text-violet-100/90">
+                <div className="mx-4 flex h-[85%] w-[82%] flex-col rounded-3xl bg-gradient-to-br from-violet-100 via-white to-violet-50 p-4">
+                  <div className="flex items-center justify-between text-[10px] text-violet-700">
                     <span className="inline-flex items-center gap-1">
                       <span className="h-2 w-2 rounded-full bg-emerald-400" />
                       Prompt bot
@@ -220,14 +221,14 @@ export default function Home() {
                   </div>
 
                   <div className="mt-3 flex flex-1 flex-col items-center justify-center gap-3">
-                    <div className="flex h-20 w-20 flex-col items-center justify-center rounded-3xl bg-violet-500/90">
+                    <div className="flex h-20 w-20 flex-col items-center justify-center rounded-3xl bg-violet-500">
                       <div className="flex gap-3">
                         <span className="h-2 w-2 rounded-full bg-white" />
                         <span className="h-2 w-2 rounded-full bg-white" />
                       </div>
                       <div className="mt-2 h-2 w-10 rounded-full bg-violet-100" />
                     </div>
-                    <div className="w-full rounded-2xl bg-slate-950/70 p-2 text-[10px] text-slate-200">
+                    <div className="w-full rounded-2xl bg-white/80 p-2 text-[10px] text-slate-700 ring-1 ring-violet-100">
                       <div className="flex items-center justify-between">
                         <span className="font-medium">Prompt quality</span>
                         <span className="text-[9px] text-emerald-300">
@@ -257,16 +258,16 @@ export default function Home() {
         {/* Analyzer section */}
         <div className="grid gap-8 lg:grid-cols-[1.1fr,1fr]">
           {/* Input card */}
-          <div className="relative rounded-3xl bg-slate-900/80 p-6 shadow-xl ring-1 ring-slate-800">
+          <div className="relative rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-violet-100">
             <div className="absolute -left-6 top-8 h-10 w-10 rounded-full bg-violet-500/40 blur-xl" />
             <div className="absolute -bottom-10 right-10 h-16 w-16 rounded-[2rem] bg-violet-300/25 blur-3xl" />
 
             <div className="flex items-center justify-between gap-4">
               <div>
-                <h2 className="text-sm font-semibold text-violet-100">
+                <h2 className="text-sm font-semibold text-violet-700">
                   Your prompt
                 </h2>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500">
                   Paste a prompt and let Gemini analyze it against your
                   criteria.
                 </p>
@@ -279,19 +280,19 @@ export default function Home() {
             </div>
 
             <textarea
-              className="mt-4 h-56 w-full resize-none rounded-2xl border border-slate-700 bg-slate-950/70 p-4 text-sm text-slate-100 shadow-inner outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-500"
+              className="mt-4 h-56 w-full resize-none rounded-2xl border border-violet-100 bg-white p-4 text-sm text-slate-800 shadow-inner outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-400"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Describe your task, context, and desired output…"
             />
 
-            <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-400">
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-500">
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={handleAnalyze}
                   disabled={isAnalyzing || !prompt.trim()}
-                  className="inline-flex items-center gap-2 rounded-full bg-violet-500 px-4 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-violet-400 disabled:cursor-not-allowed disabled:bg-violet-500/40"
+                  className="inline-flex items-center gap-2 rounded-full bg-violet-500 px-4 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-violet-400 disabled:cursor-not-allowed disabled:bg-violet-300/60"
                 >
                   {isAnalyzing ? "Analyzing…" : "Analyze prompt"}
                 </button>
@@ -299,11 +300,11 @@ export default function Home() {
                   type="button"
                   onClick={handleUseImproved}
                   disabled={!analysis}
-                  className="inline-flex items-center gap-2 rounded-full bg-slate-800 px-4 py-1.5 text-xs font-medium text-slate-100 shadow-sm transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-800/40"
+                  className="inline-flex items-center gap-2 rounded-full bg-violet-50 px-4 py-1.5 text-xs font-medium text-violet-700 shadow-sm transition hover:bg-violet-100 disabled:cursor-not-allowed disabled:bg-violet-50/60"
                 >
                   Use improved prompt
                 </button>
-                <span className="rounded-full bg-slate-900 px-3 py-1">
+                <span className="rounded-full bg-violet-50 px-3 py-1 text-violet-700">
                   You are · Task · Context · Output format · Tone · Constraints
                 </span>
               </div>
@@ -315,28 +316,28 @@ export default function Home() {
             )}
           </div>
 
-          {/* Overview + ready-to-copy */}
-          <div className="relative flex flex-col gap-4 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 p-6 shadow-xl ring-1 ring-slate-800">
-            <div className="absolute -left-8 top-10 h-20 w-20 rounded-[2rem] bg-violet-500/30 blur-2xl" />
-            <div className="absolute bottom-0 right-0 h-24 w-24 rounded-[3rem] bg-violet-300/25 blur-3xl" />
+          {/* Results card: overview + criteria + suggestions + ready-to-copy + tips */}
+          <div className="relative flex flex-col gap-4 rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-violet-100">
+            <div className="absolute -left-8 top-10 h-20 w-20 rounded-[2rem] bg-violet-200/70 blur-3xl" />
+            <div className="absolute bottom-0 right-0 h-24 w-24 rounded-[3rem] bg-violet-100/70 blur-3xl" />
 
-            <div className="relative z-10 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-              <span className="h-px flex-1 bg-slate-700" />
+            <div className="relative z-10 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-violet-500">
+              <span className="h-px flex-1 bg-violet-200" />
               <span>Overview</span>
             </div>
 
             <div className="relative z-10 flex flex-col gap-4">
               <div className="flex items-end justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold text-violet-200">
+                  <p className="text-xs font-semibold text-violet-500">
                     Overall score
                   </p>
-                  <p className="text-3xl font-bold text-white">
+                  <p className="text-3xl font-bold text-violet-800">
                     {overallScore}/100
                   </p>
                   <p className="text-xs text-slate-400">{overallLabel}</p>
                 </div>
-                <div className="flex flex-col items-end gap-1 text-[11px] text-slate-300">
+                <div className="flex flex-col items-end gap-1 text-[11px] text-slate-500">
                   <span className="font-semibold">Analysis status</span>
                   <span className="rounded-full bg-slate-900 px-2 py-0.5 text-[10px] text-slate-200">
                     {analysis ? "Last run from Gemini" : "Waiting for first analysis"}
@@ -344,17 +345,17 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-1 grid gap-2 text-[11px] text-slate-300">
+              <div className="mt-1 grid gap-2 text-[11px] text-slate-500">
                 {criteriaScores.map((c) => (
                   <div
                     key={c.id}
-                    className="flex items-center justify-between rounded-2xl bg-slate-900/80 px-3 py-2 ring-1 ring-slate-800"
+                    className="flex items-center justify-between rounded-2xl bg-white px-3 py-2 ring-1 ring-violet-100"
                   >
                     <div className="flex flex-col">
-                      <span className="text-xs font-semibold text-violet-100">
+                      <span className="text-xs font-semibold text-violet-700">
                         {c.label}
                       </span>
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[11px] text-slate-500">
                         {c.feedback}
                       </span>
                     </div>
@@ -379,13 +380,13 @@ export default function Home() {
               </div>
 
               {/* Ready-to-copy improved prompt */}
-              <div className="mt-4 rounded-3xl bg-slate-900/80 p-6 shadow-xl ring-1 ring-slate-800">
+              <div className="mt-4 rounded-3xl bg-white p-6 shadow-md ring-1 ring-violet-100">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <h2 className="text-sm font-semibold text-violet-100">
+                    <h2 className="text-sm font-semibold text-violet-700">
                       Ready-to-copy prompt
                     </h2>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-slate-500">
                       Use this upgraded version as input for any other AI model
                       or tool.
                     </p>
@@ -394,15 +395,15 @@ export default function Home() {
                     type="button"
                     onClick={handleCopyImproved}
                     disabled={!analysis || !analysis.improvedPrompt?.trim()}
-                    className="inline-flex items-center gap-2 rounded-full bg-slate-800 px-4 py-1.5 text-xs font-medium text-slate-100 shadow-sm transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-800/40"
+                    className="inline-flex items-center gap-2 rounded-full bg-violet-500 px-4 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-violet-400 disabled:cursor-not-allowed disabled:bg-violet-300/60"
                   >
                     {copied ? "Copied" : "Copy prompt"}
                   </button>
                 </div>
 
-                <div className="mt-3 rounded-2xl bg-slate-950/80 p-4 text-xs text-slate-100 ring-1 ring-slate-800">
+                <div className="mt-3 rounded-2xl bg-violet-50 p-4 text-xs text-slate-800 ring-1 ring-violet-100">
                   {!analysis || !analysis.improvedPrompt?.trim() ? (
-                    <p className="text-slate-400">
+                    <p className="text-slate-500">
                       Run an analysis first to generate an improved,
                       export-ready prompt.
                     </p>
@@ -413,62 +414,64 @@ export default function Home() {
                   )}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Suggestions / tips section */}
-        <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
-          <div className="rounded-3xl bg-slate-900/80 p-6 shadow-xl ring-1 ring-slate-800">
-            <h2 className="text-sm font-semibold text-violet-100">
-              Targeted suggestions
-            </h2>
-            <p className="mt-1 text-xs text-slate-400">
-              Generated from your prompt-engineering checklist.
-            </p>
-            <div className="mt-4 space-y-2 text-sm text-slate-200">
-              {!analysis ? (
-                <p className="text-xs text-slate-300">
-                  Run an analysis to see AI-generated, targeted suggestions for
-                  how to upgrade your prompt.
+              {/* Targeted suggestions */}
+              <div className="mt-4 rounded-3xl bg-violet-50 p-4 shadow-md ring-1 ring-violet-200">
+                <h2 className="text-sm font-semibold text-violet-700">
+                  Targeted suggestions
+                </h2>
+                <p className="mt-1 text-xs text-violet-500">
+                  Generated from your prompt-engineering checklist.
                 </p>
-              ) : analysis.suggestions.length === 0 ? (
-                <p className="text-xs text-emerald-300">
-                  Gemini didn&apos;t find any major issues. Try changing your goal
-                  or context to explore different variants.
-                </p>
-              ) : (
-                analysis.suggestions.map((s, i) => (
-                  <div
-                    key={i}
-                    className="flex gap-2 rounded-2xl bg-slate-950/80 px-3 py-2"
-                  >
-                    <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-400" />
-                    <p className="text-xs text-slate-200">{s}</p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
+                <div className="mt-3 space-y-2 text-xs text-slate-700">
+                  {!analysis ? (
+                    <p>
+                      Run an analysis to see AI-generated suggestions for how to
+                      upgrade your prompt.
+                    </p>
+                  ) : analysis.suggestions.length === 0 ? (
+                    <p className="text-emerald-600">
+                      Gemini didn&apos;t find any major issues. Try changing your
+                      goal or context to explore different variants.
+                    </p>
+                  ) : (
+                    analysis.suggestions.map((s, i) => (
+                      <div
+                        key={i}
+                        className="flex gap-2 rounded-2xl bg-white/80 px-3 py-2 ring-1 ring-violet-100"
+                      >
+                        <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-400" />
+                        <div className="text-xs leading-relaxed">
+                          <ReactMarkdown
+                            components={{
+                              p: ({ node, ...props }) => (
+                                // Wrap paragraphs in a <p> with consistent styling
+                                <p className="mb-1 text-slate-700" {...props} />
+                              ),
+                              li: ({ node, ...props }) => (
+                                <li
+                                  className="ml-4 list-disc text-slate-700"
+                                  {...props}
+                                />
+                              ),
+                              strong: ({ node, ...props }) => (
+                                <strong
+                                  className="font-semibold text-violet-700"
+                                  {...props}
+                                />
+                              ),
+                            }}
+                          >
+                            {s}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
 
-          <div className="rounded-3xl bg-gradient-to-br from-violet-500/15 via-slate-900 to-slate-950 p-6 shadow-xl ring-1 ring-violet-700/40">
-            <h2 className="text-sm font-semibold text-violet-50">
-              Tips for better prompts
-            </h2>
-            <p className="mt-1 text-xs text-violet-100/90">
-              Use this as a mini slide: refine, re-run, and compare versions.
-            </p>
-            <ul className="mt-3 space-y-2 text-xs text-violet-50/95">
-              {tips.map((tip) => (
-                <li
-                  key={tip}
-                  className="flex gap-2 rounded-2xl bg-slate-950/70 px-3 py-2"
-                >
-                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-300" />
-                  <span>{tip}</span>
-                </li>
-              ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>

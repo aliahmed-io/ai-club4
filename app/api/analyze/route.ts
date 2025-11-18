@@ -2,11 +2,15 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const runtime = "nodejs";
 
-const apiKey = process.env.GOOGLE_API_KEY;
+// Prefer the official GEMINI_API_KEY used in current Google AI docs, but still
+// accept GOOGLE_API_KEY as a fallback so existing setups keep working.
+const apiKey = process.env.GEMINI_API_KEY ?? process.env.GOOGLE_API_KEY;
 
 if (!apiKey) {
   // Note: we deliberately do not throw here; we return a helpful error in the handler instead.
-  console.warn("[Prompt Analyzer] Missing GOOGLE_API_KEY environment variable.");
+  console.warn(
+    "[Prompt Analyzer] Missing GEMINI_API_KEY (or GOOGLE_API_KEY) environment variable.",
+  );
 }
 
 const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
@@ -50,7 +54,7 @@ export async function POST(request: Request): Promise<Response> {
     return new Response(
       JSON.stringify({
         error:
-          "Missing GOOGLE_API_KEY. Set it in your server environment (e.g. .env.local).",
+          "Missing GEMINI_API_KEY. Set it in your server environment (e.g. .env.local).",
       }),
       {
         status: 500,
@@ -85,20 +89,13 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    // Use the latest 2.5 flash model as requested.
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-    const result = await model.generateContent({
-      contents: [
-        {
-          role: "user",
-          parts: [
-            {
-              text: `${systemInstruction}\n\nUSER_PROMPT:\n${prompt}`,
-            },
-          ],
-        },
-      ],
-    });
+    // The current docs show using generateContent with a simple string prompt.
+    const result = await model.generateContent(
+      `${systemInstruction}\n\nUSER_PROMPT:\n${prompt}`,
+    );
 
     const text = result.response.text();
 
@@ -130,8 +127,10 @@ export async function POST(request: Request): Promise<Response> {
     });
   } catch (error) {
     console.error("[Prompt Analyzer] Gemini API error:", error);
+    const message =
+      error instanceof Error ? error.message : "Unknown error while calling Gemini.";
     return new Response(
-      JSON.stringify({ error: "Error while calling Gemini API." }),
+      JSON.stringify({ error: "Error while calling Gemini API.", details: message }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
